@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        #output {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cheack your BMI</h1>
+    <p>Enter your weight and height below to check your BMI  results</p>
+    <label for="weight">Put your weight in here (KG)</label>
+    <input type="number" id="weight" placeholder="Enter weight" step="0.01" required>
+    <br>
+    <label for="height">And your height in here (CM)</label>
+    <input type="number" id="height" placeholder="Enter height" step="1" required>
+    <br>
+    <button onclick="calculateBMI()">Calculate BMI</button>
+    <div id="output"></div>
+
+    <script>
+        function calculateBMI() {
+            var weight = parseFloat(document.getElementById("weight").value);
+            var height = parseFloat(document.getElementById("height").value);
+
+            if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+                alert("Please enter valid weight and height.");
+                return;
+            }
+            
+            // Convert height from centimeters to meters
+            var heightInMeters = height / 100;
+
+            var bmi = weight / (heightInMeters ** 2);
+            var classification;
+
+            if (bmi <= 18.4) {
+                classification = "Underweight";
+            } else if (bmi <= 24.9) {
+                classification = "Normal Weight";
+            } else if (bmi <= 29.9) {
+                classification = "Overweight";
+            } else {
+                classification = "Obese";
+            }
+
+            var outputElement = document.getElementById("output");
+            outputElement.innerHTML = "<p><strong>BMI:</strong> " + bmi.toFixed(2) + "</p>" +
+                                      "<p><strong>Classification:</strong> " + classification + "</p>";
+        }
+    </script>
+</body>
+</html>
